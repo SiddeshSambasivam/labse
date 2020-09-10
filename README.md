@@ -48,8 +48,6 @@ The model was trained on 109 languages to create a cross-lingual embedding space
 - Bitext Mining
 - Semantic Similarity
 
----
-
 ## References
 
 1. Paper: https://arxiv.org/abs/2007.01852
