@@ -1,0 +1,7 @@
+__pycache__
+/labse/
+/checkpoints/bert_config.json
+/checkpoints/bert_model.ckpt.data-00000-of-00001
+/checkpoints/bert_model.ckpt.index
+/checkpoints/checkpoint
+/checkpoints/vocab.txt

@@ -1,47 +1,60 @@
 # Language-agnostic BERT Sentence Embedding (LaBSE)
 
-Convert the original tfhub weights to the BERT format.
+LaBSE model is a language agnostic sentence embedding model.
 
-## LaBSE
+The model was trained on 109 languages to create a cross-lingual embedding space to embed any given sentence in any language to a common embedding space. It achieves the state-of-the-art performance on various bitext retrieval/mining tasks compareing with previous state-of-the-art with less language coverage.
 
-- Paper: https://arxiv.org/abs/2007.01852
-- TFHUB: https://tfhub.dev/google/LaBSE/1
+## Installation
 
-Original Introduction:
+---
 
-> We adapt multilingual BERT to produce language-agnostic sentence embeddings for 109 languages. %The state-of-the-art for numerous monolingual and multilingual NLP tasks is masked language model (MLM) pretraining followed by task specific fine-tuning. While English sentence embeddings have been obtained by fine-tuning a pretrained BERT model, such models have not been applied to multilingual sentence embeddings. Our model combines masked language model (MLM) and translation language model (TLM) pretraining with a translation ranking task using bi-directional dual encoders. The resulting multilingual sentence embeddings improve average bi-text retrieval accuracy over 112 languages to 83.7%, well above the 65.5% achieved by the prior state-of-the-art on Tatoeba. Our sentence embeddings also establish new state-of-the-art results on BUCC and UN bi-text retrieval.
+- ### Environment Setup
 
+  For Unix Systems:
 
-## Download
+  1. Open Terminal and run the following bash command
 
-The converted weights can be downloaded at: 
+     `pip install virtualenv`.
 
-> 链接: https://pan.baidu.com/s/17qUdDSrPhhNTvPnEeI56sg 提取码: p52d
+  2. Run the following command to create a virtualenv and install the project dependencies
 
-or 
+     `python3 -m venv labse`
 
-> Google Drive: https://drive.google.com/file/d/14Zaq8RE9NMyJb_9B-lkgFZQ9H1K-U-Nf
+     `source labse/bin/activate`
 
-We can load it with [bert4keras](https://github.com/bojone/bert4keras):
+     `pip install -r requirements.txt`
+
+- ### Download the pretrained Weights
+
+  The converted weights can be downloaded from the follwing links: [Link 1](https://pan.baidu.com/s/17qUdDSrPhhNTvPnEeI56sg) or [Link 2](https://drive.google.com/file/d/14Zaq8RE9NMyJb_9B-lkgFZQ9H1K-U-Nf)
+
+  Finally, move the downloaded files to the checkpoints folder
+
+## Sample Code
+
+---
+
 ```python
-from bert4keras.backend import keras
-from bert4keras.models import build_transformer_model
-from bert4keras.tokenizers import Tokenizer
-import numpy as np
+>>> from model import LaBSE
+>>> sentences = ['hello world', 'this is a sample case']
+>>> model = LaBSE()
+>>> embeddings = model.encode(sentences)
 
-config_path = '/root/kg/bert/labse/bert_config.json'
-checkpoint_path = '/root/kg/bert/labse/bert_model.ckpt'
-dict_path = '/root/kg/bert/labse/vocab.txt'
-
-tokenizer = Tokenizer(dict_path)
-model = build_transformer_model(config_path, checkpoint_path, with_pool='linear')
-
-# 编码测试
-token_ids, segment_ids = tokenizer.encode(u'语言模型')
-
-print('\n ===== predicting =====\n')
-print(model.predict([np.array([token_ids]), np.array([segment_ids])]))
+[INFO] Embedded 2 sentences
 ```
 
+## Application
+
+- Bitext Mining
+- Semantic Similarity
+
+---
+
+## References
+
+1. Paper: https://arxiv.org/abs/2007.01852
+2. TFHUB: https://tfhub.dev/google/LaBSE/1
+
 ## Contact
+
 - https://kexue.fm
